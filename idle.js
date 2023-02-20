@@ -37,6 +37,8 @@ function resizelayout() {
     viewer.window.hh = window.innerHeight / 2;
     csw = (window.innerWidth-20)
     csh = (window.innerHeight-20)
+    canvas.width = csw;
+    canvas.height = csh;
     canvas.style.width = `${csw}px`;
     canvas.style.height = `${csh}px`;
 };
