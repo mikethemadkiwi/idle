@@ -37,8 +37,8 @@ function resizelayout() {
     viewer.window.hh = window.innerHeight / 2;
     csw = (window.innerWidth-20)
     csh = (window.innerHeight-20)
-    canvas.width = csw;
-    canvas.height = csh;
+    // canvas.width = csw;
+    // canvas.height = csh;
     canvas.style.width = `${csw}px`;
     canvas.style.height = `${csh}px`;
 };
@@ -128,27 +128,44 @@ function randomFromInterval(from, to) {
     return Math.floor(Math.random() * (to - from + 1) + from);
 };
 //
-function showFPS(){
-    ctx.fillStyle = "green";
-    ctx.font      = "normal 8pt Arial";
-    if(viewer.fps<30){ ctx.fillStyle = "red"; }
-    ctx.fillText(`fps:${(viewer.fps.toFixed(2))}`, 0, 0);
+function btnMove(){
+    console.log('click')
+}
+//
+function btnMine(){
+    console.log('click')
+}
+//
+function btnCombat(){
+    console.log('click')
 }
 //
 function gameLoop(TIME){    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (viewer.show_fps) showFPS();
     viewer.fps = 1 / ((performance.now() - viewer.LAST_FRAME_TIME) / 1000);
     viewer.LAST_FRAME_TIME = TIME /* remember the time of the rendered frame */
-
+    // if (viewer.show_fps) showFPS();
+    // ctx.fillStyle = "green";
+    // ctx.font      = "normal 8pt Arial";
+    // if(viewer.fps<30){ ctx.fillStyle = "red"; }
+    // ctx.fillText(`fps:${(viewer.fps.toFixed(2))}`, 0, 0);
     ctx.font = '12px Lucida Console';
     ctx.fillStyle = 'green';
     ctx.fillText('Bubblespace 0.0.3', 10, 22);
-    if (viewer.show_utils == true) {
+    if (viewer.show_utils) {
         ctx.font = '12px Lucida Console';
         ctx.fillStyle = 'white';
-        ctx.fillText('Res|' + viewer.window.w + 'x' + viewer.window.h + ' (Midpoint:' + viewer.window.hw + 'x' + viewer.window.hh + ') ', 10, 58);
-        ctx.fillText('MOUSE| pos:' + mouse.X + '/' + mouse.Y + ' Pressed| l:' + mouse.isdownL + ' m:' + mouse.isdownM + ' r:' + mouse.isdownR + '| Scroll|' + mouse.delta + '|', 10, 76);
+        ctx.fillText('|Canvas Size| ' + canvas.width + 'x' + canvas.height + ' |Window Size| '+window.innerWidth+'x'+window.innerHeight+'', 10, 58);
+        if (viewer.show_fps){
+            if(viewer.fps<=15){ctx.fillStyle = 'red';}
+            else{
+                if(viewer.fps>=30){ctx.fillStyle = 'green';}
+                else{ctx.fillStyle = 'yellow';}
+            }
+            ctx.fillText('|FPS| '+viewer.fps.toFixed(2)+'', 10, 67);
+        }
+        ctx.fillStyle = 'white';        
+        ctx.fillText('|MOUSE| pos:' + mouse.X + '/' + mouse.Y + ' Pressed| l:' + mouse.isdownL + ' m:' + mouse.isdownM + ' r:' + mouse.isdownR + '| Scroll|' + mouse.delta + '|', 10, 76);
     }
     if (viewer.game_running) requestAnimationFrame(gameLoop);
 }
